@@ -33,7 +33,7 @@ $(function() {
          */
 
          it('has URLs in each allFeeds objects', function() {
-            for (i = 0; i < allFeeds.length; i++) {
+            for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
             }
@@ -83,7 +83,7 @@ $(function() {
     });
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-
+        var feedContent;
         
 
 
@@ -98,11 +98,15 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 done();
-            });
+                feedContent=$('.feed .entry h2').html();
+
+            }, 1000);
         });
 
+
         it("should have an entry in the feed container", function() {
-            expect(document.getElementsByClassName("feed").length).toBe(1);
+            feedContent = $('.feed .entry').html();
+            expect(feedContent.length).not.toBe(0);
         });
     });
 
@@ -113,46 +117,28 @@ $(function() {
         
         beforeEach(function(done) {
             loadFeed(0, function() {
-                done();
                 initialValues=$('.feed .entry h2').html();
+            });
 
-            }, 1000);
+            loadFeed(1, function(){
+                newValues=$('.feed .entry h2').html();
+                done();
+            });
         });
 
-        // it ("should have loaded data", function() {
-        //     initalValues = document.getElementsByClassName("feed");
-        //     console.log(initalValues);
-        //     expect(initalValues).toBeDefined();
-
-
-        
-
-        describe('Load a new news feed', function() {
-
-            beforeEach(function(done) {
-                loadFeed(1, function() {
-                    done();
-                }, 1000);
-            });
- 
 
          /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
                 
-            it("should change content when different feeds load", function() {
-                newValues = $('.feed .entry h2').html()
-                expect(newValues).not.toBe(initialValues);
+        it("should change content when different feeds load", function(done) {
+            expect(newValues).not.toBe(initialValues);
+            done();
 
-        });
-
-
-        });
-
-
-
+            });
 
 
     });
+
 }());
