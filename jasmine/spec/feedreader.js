@@ -84,9 +84,6 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
         var feedContent;
-        
-
-
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -99,8 +96,7 @@ $(function() {
             loadFeed(0, function() {
                 done();
                 feedContent=$('.feed .entry h2').html();
-
-            }, 1000);
+            });
         });
 
 
@@ -118,11 +114,10 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 initialValues=$('.feed .entry h2').html();
-            });
-
-            loadFeed(1, function(){
-                newValues=$('.feed .entry h2').html();
-                done();
+                loadFeed(1, function(){
+                    newValues=$('.feed .entry h2').html();
+                    done();
+                });
             });
         });
 
@@ -132,12 +127,9 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
                 
-        it("should change content when different feeds load", function(done) {
+        it("should change content when different feeds load", function() {
             expect(newValues).not.toBe(initialValues);
-            done();
-
             });
-
 
     });
 
